@@ -1,5 +1,5 @@
 public class Peao extends Itens {
-  private boolean moved;  //var usada para verificar se a peça já se moveu alguma vez
+  private boolean moved;  //var usada para verificar se a peça já se moveu alguma vez.
 
   public Peao(int x, int y, char cor){
     this.x=x;
