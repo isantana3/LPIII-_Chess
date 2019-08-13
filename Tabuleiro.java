@@ -16,17 +16,22 @@ public class Tabuleiro {
   */
   private void set_movimento(int x1, int y1, int x2, int y2){
     if(this.verifica_posicao(x1, y1) && this.verifica_posicao(x2, y2)){
-      if(this.vez_jogador(x1, y1)){
-        if(this.matriz[x1][y1].set_posicao(x2, y2){ // melhor verificação dos casos (FAZER) null e peça
+      if(this.vez_jogador(x1, y1)){  
+		  // melhor verificação dos casos (FAZER) null e peça
           /*
+		  if(matriz[x2][y2]==null) 
+			if(set_posição(x2, y2, 'null de char')) // dentro de set_posicao tem que ter
+		  else if(matriz[x2][y2].get_cor=='b')
+			if(set_posicao(x2, y2, matrix[x2][y2].get_cor);
+		  else 
+			if(set_posicao(x2, y2, matrix[x2][y2].get_cor);
           OCORRER UMA TROCA DE PEÇA AQUI
-          CASO 1: TROCA SIMPLES -> MOVIMENTO PARA LUGAR VAZIO
-          CASO 2: EXECUÇÃO -> SUBSTITUI PEÇA ADVERSÁRIA E APAGA A SI MESMA
-          CASO 3: TORRE COM REI (ESPECIAL)
+          CASO 1: TROCA SIMPLES -> MOVIMENTO PARA LUGAR VAZIO/DELETAR A SI MESMO
+          CASO 2: EXECUÇÃO -> SUBSTITUI PEÇA ADVERSÁRIA/DELETAR A SI MESMO
+          CASO 3: TORRE COM REI (ESPECIAL)// não sei como isso vai funfa
           vou ver como isso vai funfa ainda
           */
-          this.jogador_branco = false;
-        }
+          this.jogador_branco = false; // POR FAVOR NE CONSERTA ISSAQUI
       }
     }
   }
