@@ -1,10 +1,15 @@
 public class Rei extends Itens {
   public Rei(int x, int y, char cor){
+    //verificação
     this.x=x;
     this.y=y;
     this.cor=cor;
   }
 
+  /*
+  Função: Verifica se o destino é válido (cor diferente/espaço vazio)
+  Status: INCOMPLETED (caso cor que eu lembre agora)
+  */
   private boolean verifica_movimento(int x, int y){
     if((x==this.x+1 || x==this.x-1) && y==this.y){
       return true;
@@ -15,10 +20,14 @@ public class Rei extends Itens {
     return false;
   }
 
-  public void set_posicao(int x, int y){
+  /*
+  Função: Se movimento é válido, return true
+  Status: INCOMPLETED
+  */
+  public boolean set_posicao(int x, int y, char cor){
     if(this.verifica_movimento(x,y)){
-      this.x=x;
-      this.y=y;
+      return true;
     }
+    return false;
   }
 }

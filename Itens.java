@@ -1,12 +1,9 @@
-public class Itens {
+public abstract class Itens {
   protected int x;
   protected int y;
   protected char cor;
 
-  public void set_posicao(int x, int y){
-    this.x=x;
-    this.y=y;
-  }
+  public abstract boolean set_posicao(int x, int y, char cor);
 
   public char get_cor(){
     return this.cor;
