@@ -6,10 +6,10 @@ public class Rei extends Peca {
 
   public void constroi_movimentos(Peca[][] tabuleiro){
     this.zera_movimentos();
-    int aux = 0;
-    int i=this.posicao.get_x();
-    int j=this.posicao.get_y();
     if(this.verifica_ponto(tabuleiro)){
+      int aux = 0;
+      int i=this.posicao.get_x();
+      int j=this.posicao.get_y();
       if(i+1<tabuleiro.length && (tabuleiro[i+1][j]==null || !tabuleiro[i+1][j].get_cor().equals(this.cor))){
         this.movimentos[aux++].set_ponto(i+1, j);
       }

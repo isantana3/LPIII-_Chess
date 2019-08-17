@@ -1,3 +1,9 @@
+/*
+Classe Ponto
+Atributos: int X e int Y
+Podem assumir qualquer valor inteiro
+*/
+
 public class Ponto {
   protected int x;
   protected int y;

@@ -3,6 +3,11 @@ public abstract class Peca{
   protected Ponto posicao;
   protected Ponto[] movimentos = new Ponto[28];
 
+  /*
+  Função:
+  Verifica se o Ponto dessa Peca está no tabuleiro fornecido
+  Entrada: Tabuleiro
+  */
   protected boolean verifica_ponto(Peca[][] tabuleiro){
     if(this.posicao!=null){
       if(this.posicao.get_x()<tabuleiro.length && this.posicao.get_x()>=0 && this.posicao.get_y()<tabuleiro.length && this.posicao.get_y()>=0){
@@ -20,6 +25,12 @@ public abstract class Peca{
     return this.cor;
   }
 
+  /*
+  Função:
+  Constroi o vetor de movimentos válidos para esta Peca na posicao atual
+  Verifica se o Ponto de chegada está dentro do vetor de movimentos válidos
+  Entrada: Ponto de chegada e Tabuleiro
+  */
   public boolean set_posicao(Ponto destino, Peca[][] tabuleiro){
     this.constroi_movimentos(tabuleiro);
     for(int i=0;i<this.movimentos.length;i++){
@@ -34,6 +45,11 @@ public abstract class Peca{
     return this.posicao;
   }
 
+  /*
+  Função:
+  "Zera" o vetor de movimentos com pontos (-1,-1)
+  Todos os Pontos são objetos diferentes
+  */
   protected void zera_movimentos(){
     Ponto p_0 = new Ponto();
     Ponto p_1 = new Ponto();
@@ -94,12 +110,22 @@ public abstract class Peca{
     this.movimentos[27]=p_27;
   }
 
+  /*
+  Função:
+  1."Zera" o vetor de movimentos válidos.
+  2.Verifica se a Peca está contida em um tabuleiro.
+  3.Reconstrói o vetor de acordo com a configuração do Tabuleiro e Peca correspondente se 2 é verdadeiro.
+  Entrada: Tabuleiro
+  */
   public abstract void constroi_movimentos(Peca[][] tabuleiro);
 
+  /*
+  Função: Printa todos o vetor de movimentos válidos
+  */
   public void mostra_movimentos(){
     for(int i=0;i<this.movimentos.length;i++){
       if(this.movimentos[i].get_x()!=-1){
-        System.out.print(i+1+""+this.movimentos[i]);
+        System.out.print(this.movimentos[i]);
       }
     }
     System.out.println();
