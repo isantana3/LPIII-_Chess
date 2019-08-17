@@ -1,51 +1,40 @@
 public class Tabuleiro {
-  private Itens matriz[][] = new Itens[8][8];
+  private Peca matriz[][] = new Peca[8][8];
   private boolean jogador_branco = true; // verifica se é a vez do jogador branco
+  private Ponto rei_branco_ponto = new Ponto(1, 1);
+  private Rei rei_branco = new Rei("B", rei_branco_ponto);
+  private Ponto rei_preto_ponto = new Ponto(0, 0);
+  private Rei rei_preto = new Rei("P", rei_preto_ponto);
 
-  public Tabuleiro(){
-    // COLOCAR TODAS AS PEÇAS NO TABULEIRO
+  public void monta_tabuleiro(){
+    matriz[rei_branco_ponto.get_x()][rei_branco_ponto.get_y()]=rei_branco;
+    matriz[rei_preto_ponto.get_x()][rei_preto_ponto.get_y()]=rei_preto;
   }
 
-  /*
-  Função que movimenta peças (movimenta para espaço vazio, troca de lugar em casos
-  específicos ou executa peça adversária) após verificar, respectivamente, se as
-  posições inseridas pelo usuário estão no tabuleiro, se é a vez do jogador
-  correspondente, e se o movimento é válido.
-  Entrada: Parâmetros x1 e y1 (saída) e x2 e y2 (destino) inseridos pelo usuário
-  Status: INCOMPLETED
-  */
-  private void set_movimento(int x1, int y1, int x2, int y2){
-    if(this.verifica_posicao(x1, y1) && this.verifica_posicao(x2, y2)){
-      if(this.vez_jogador(x1, y1)){  
-		  // melhor verificação dos casos (FAZER) null e peça
-          /*
-		  if(matriz[x2][y2]==null) 
-			if(set_posição(x2, y2, 'null de char')) // dentro de set_posicao tem que ter
-		  else if(matriz[x2][y2].get_cor=='b')
-			if(set_posicao(x2, y2, matrix[x2][y2].get_cor);
-		  else 
-			if(set_posicao(x2, y2, matrix[x2][y2].get_cor);
-          OCORRER UMA TROCA DE PEÇA AQUI
-          CASO 1: TROCA SIMPLES -> MOVIMENTO PARA LUGAR VAZIO/DELETAR A SI MESMO
-          CASO 2: EXECUÇÃO -> SUBSTITUI PEÇA ADVERSÁRIA/DELETAR A SI MESMO
-          CASO 3: TORRE COM REI (ESPECIAL)// não sei como isso vai funfa
-          vou ver como isso vai funfa ainda
-          */
-          this.jogador_branco = false; // POR FAVOR NE CONSERTA ISSAQUI
+  public boolean jogada(Ponto item, Ponto destino){
+    if(vez_jogador(item)){
+      if(matriz[item.get_x()][item.get_y()].set_posicao(destino, matriz)){
+        matriz[destino.get_x()][destino.get_y()]=matriz[item.get_x()][item.get_y()];
+        matriz[item.get_x()][item.get_y()]=null;
+        jogador_branco = !jogador_branco;
+        return true;
       }
     }
+    return false;
   }
-
+  
   /*
   Função: Verifica se o jogador da vez selecionou uma peça própria
   Entrada: Primeiros parâmetros x e y (saída) inseridos pelo usuário
   Saída: True se for peça branca e vez do jogador branco ou
          peça preta e vez do jogador preto
   */
-  private boolean vez_jogador(int x, int y){
-    if(this.matriz[x][y]!=null){
-      if(this.jogador_branco==true && this.matriz[x][y].get_cor()=='b' || this.jogador_branco==false && this.matriz[x][y].get_cor()=='p'){
-        return true;
+  private boolean vez_jogador(Ponto p){
+    if(this.verifica_ponto(p)){
+      if(this.matriz[p.get_x()][p.get_y()]!=null){
+        if(this.jogador_branco==true && this.matriz[p.get_x()][p.get_y()].get_cor().equals("B") || this.jogador_branco==false && this.matriz[p.get_x()][p.get_y()].get_cor().equals("P")){
+          return true;
+        }
       }
     }
     return false;
@@ -57,8 +46,8 @@ public class Tabuleiro {
   Saída: True os parâmetros estão no tabuleiro 8x8
          False se algum está fora do tabuleiro
   */
-  private boolean verifica_posicao(int x, int y){
-    if(x>=0 && x<8 && y>=0 && y<8){
+  private boolean verifica_ponto(Ponto p){
+    if(p.get_x()>=0 && p.get_x()<8 && p.get_y()>=0 && p.get_y()<8){
       return true;
     }
     return false;
@@ -66,15 +55,21 @@ public class Tabuleiro {
 
   /*
   Saída: Matriz com os caracteres de cada peça no caso agora null...
-  Status: INCOMPLETED
   */
   public void mostra_tabuleiro(){
     for(int i=0;i<8;i++){
-      for(int j=0;j<8;j++)
+      for(int j=0;j<8;j++){
         if(this.matriz[j][i]==null){
-          System.out.print("nulo");
+          System.out.print("[  ]");
         }
+        else
+          System.out.print("["+this.matriz[j][i]+"]");
+      }
       System.out.println();
     }
+  }
+
+  public Peca[][] get_matriz(){
+    return this.matriz;
   }
 }
