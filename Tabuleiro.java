@@ -17,7 +17,7 @@ public class Tabuleiro {
   /*
   Função: Realiza uma jogada após:
   1.Verifica se o jogador da vez escolheu Peca própria.
-  2.Verifica se o Ponto de chegada está contido nos movimentos válidos da Peca de partida.
+  2.Verifica se o Ponto de chegada está contido no Tabuleiro e nos movimentos válidos da Peca de partida.
   3.Realiza a troca de posições se 1 e 2 verdadeiros.
   4.Muda a vez do jogador se 1 e 2 verdadeiros.
   Entrada: Ponto de partida e Ponto de chegada dentro do Tabuleiro.
@@ -25,12 +25,14 @@ public class Tabuleiro {
          False se não.
   */
   public boolean jogada(Ponto partida, Ponto chegada){
-    if(vez_jogador(partida)){
-      if(matriz[partida.get_x()][partida.get_y()].set_posicao(chegada, matriz)){
-        matriz[chegada.get_x()][chegada.get_y()]=matriz[partida.get_x()][partida.get_y()];
-        matriz[partida.get_x()][partida.get_y()]=null;
-        jogador_branco = !jogador_branco;
-        return true;
+    if(this.vez_jogador(partida)){
+      if(this.verifica_ponto(chegada)){
+        if(matriz[partida.get_x()][partida.get_y()].set_posicao(chegada, matriz)){
+          matriz[chegada.get_x()][chegada.get_y()]=matriz[partida.get_x()][partida.get_y()];
+          matriz[partida.get_x()][partida.get_y()]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        }
       }
     }
     return false;
