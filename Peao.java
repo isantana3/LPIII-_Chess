@@ -15,14 +15,14 @@ public class Peao extends Peca {
       int aux = 0;
       int i=partida.get_x();
       int j=partida.get_y();
-      if(this.cor.equals('B')){
+      if(this.cor.equals("B")){
         if(j-1>=0 && tabuleiro[i][j-1]==null){
           this.movimentos[aux++].set_ponto(i, j-1);
         }
-        if(j-1>=0 && i+1<tabuleiro.length && !tabuleiro[i+1][j-1].get_cor().equals(this.cor)){
+        if(j-1>=0 && i+1<tabuleiro.length && tabuleiro[i+1][j-1]!=null && !tabuleiro[i+1][j-1].get_cor().equals(this.cor)){
           this.movimentos[aux++].set_ponto(i+1, j-1);
         }
-        if(j-1>=0 && i-1>=0 && !tabuleiro[j-1][j-1].get_cor().equals(this.cor)){
+        if(j-1>=0 && i-1>=0 && tabuleiro[i-1][j-1]!=null && !tabuleiro[i-1][j-1].get_cor().equals(this.cor)){
           this.movimentos[aux++].set_ponto(i-1, j-1);
         }
         if(!this.moved){
@@ -31,18 +31,18 @@ public class Peao extends Peca {
           }
         }
       }
-      else{
+      else {
         if(j+1<tabuleiro.length && tabuleiro[i][j+1]==null){
           this.movimentos[aux++].set_ponto(i, j+1);
         }
-        if(j+1<tabuleiro.length && i+1<tabuleiro.length && !tabuleiro[i+1][j+1].get_cor().equals(this.cor)){
+        if(j+1<tabuleiro.length && i+1<tabuleiro.length && tabuleiro[i+1][j+1]!=null && !tabuleiro[i+1][j+1].get_cor().equals(this.cor)){
           this.movimentos[aux++].set_ponto(i+1, j+1);
         }
-        if(j+1<tabuleiro.length && i-1>=0 && !tabuleiro[i-1][j+1].get_cor().equals(this.cor)){
+        if(j+1<tabuleiro.length && i-1>=0 && tabuleiro[i-1][j+1]!=null && !tabuleiro[i-1][j+1].get_cor().equals(this.cor)){
           this.movimentos[aux++].set_ponto(i-1, j+1);
         }
         if(!this.moved){
-          if(j+2>=0 && tabuleiro[i][j+2]==null){
+          if(j+2<tabuleiro.length && tabuleiro[i][j+2]==null){
             this.movimentos[aux++].set_ponto(i, j+2);
           }
         }

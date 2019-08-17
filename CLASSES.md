@@ -8,24 +8,19 @@
 
 # Classe Peca:
 	Atributos:
-		String cor; (Só deve receber "B" ou "P" - falta fazer verificação pra isso)
-		Ponto posicao; Ponto - qualquer, sem verificacao
+		String cor; "B" ou "P"
 		Ponto[] movimentos: (Vetor dos movimentos válidos em this.posicao)
 	Métodos:
-		verifica_ponto(Tabuleiro) - se o ponto posicao DESSA peca tá no tabuleiro.
 		zera_movimentos() - vetor movimentos preenchido com pontos (-1, -1)
-		constroi_movimentos(Tabuleiro) - zera vetor, se peca dentro do tabuleiro, constroi vetor
+		constroi_movimentos(Ponto partida, Tabuleiro) - zera vetor, se peca dentro do tabuleiro, constroi vetor
 		mostra_movimentos() - mostra o vetor movimentos
 		get_movimentos();
-		set_posicao(Ponto) - se Ponto chegada em movimentos, atualiza posicao da Peca e retorna true
-		get_posicao();
+		set_posicao(Ponto partida, chegada, Tabuleiro)
 		set_cor(String cor);
 		get_cor();
 		toString();
 
 #Obs:
-	Óbvio que a peça vai estar no tabuleiro se vc escolheu ela dentro da classe Tabuleiro
-	Necessidade de Ponto posicao na Peça
 	Falta:
 	1.Roque
 	2.Le passant
