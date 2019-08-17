@@ -1,15 +1,13 @@
 public class Bispo extends Peca {
-  public Bispo(String cor, Ponto posicao){
-    this.posicao=posicao;
-    this.cor=cor;
+  public Bispo(String cor){
+    super(cor);
   }
 
-  public void constroi_movimentos(Peca[][] tabuleiro){
+  public void constroi_movimentos(Ponto partida, Peca[][] tabuleiro){
     this.zera_movimentos();
-    if(this.verifica_ponto(tabuleiro)){
       int aux = 0;
-      int i=this.posicao.get_x();
-      int j=this.posicao.get_y();
+      int i=partida.get_x();
+      int j=partida.get_y();
       for(int k=1;i+k<tabuleiro.length && j+k<tabuleiro.length;k++){
         if(tabuleiro[i+k][j+k]==null){
           this.movimentos[aux++].set_ponto(i+k, j+k);
@@ -54,7 +52,6 @@ public class Bispo extends Peca {
         else
           break;
       }
-    }
   }
 
   public String toString(){

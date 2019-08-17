@@ -1,15 +1,13 @@
 public class Rainha extends Peca {
-  public Rainha(String cor, Ponto posicao){
-    this.posicao=posicao;
-    this.cor=cor;
+  public Rainha(String cor){
+    super(cor);
   }
 
-  public void constroi_movimentos(Peca[][] tabuleiro){
+  public void constroi_movimentos(Ponto partida, Peca[][] tabuleiro){
     this.zera_movimentos();
-    if(this.verifica_ponto(tabuleiro)){
       int aux = 0;
-      int i=this.posicao.get_x();
-      int j=this.posicao.get_y();
+      int i=partida.get_x();
+      int j=partida.get_y();
       for(int k=i+1;k<tabuleiro.length;k++){
         if(tabuleiro[k][j]==null){
           this.movimentos[aux++].set_ponto(k, j);
@@ -98,7 +96,6 @@ public class Rainha extends Peca {
         else
           break;
       }
-    }
   }
 
   public String toString(){

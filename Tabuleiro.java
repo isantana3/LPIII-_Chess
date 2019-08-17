@@ -1,35 +1,55 @@
 public class Tabuleiro {
   private Peca matriz[][] = new Peca[8][8];
   private boolean jogador_branco = true;
-  private Ponto rei_branco_ponto = new Ponto(1, 1);
-  private Rei rei_branco = new Rei("B", rei_branco_ponto);
-  private Ponto rei_preto_ponto = new Ponto(0, 0);
-  private Rei rei_preto = new Rei("P", rei_preto_ponto);
-  private Ponto cavalo_branco_ponto = new Ponto(4, 4);
-  private Cavalo cavalo_branco = new Cavalo("B", cavalo_branco_ponto);
-  private Ponto cavalo_preto_ponto = new Ponto(5, 6);
-  private Cavalo cavalo_preto = new Cavalo("P", cavalo_preto_ponto);
-  private Ponto torre_branco_ponto = new Ponto(3, 4);
-  private Torre torre_branco = new Torre("B", torre_branco_ponto);
-  private Ponto torre_preto_ponto = new Ponto(6, 6);
-  private Torre torre_preto = new Torre("P", torre_preto_ponto);
-  private Ponto bispo_branco_ponto = new Ponto(7, 7);
-  private Bispo bispo_branco = new Bispo("B", bispo_branco_ponto);
-  private Ponto bispo_preto_ponto = new Ponto(3, 3);
-  private Bispo bispo_preto = new Bispo("P", bispo_preto_ponto);
+  private Rei rei_branco = new Rei("B");
+  private Rei rei_preto = new Rei("P");
+  private Rainha rainha_branco = new Rainha("B");
+  private Rainha rainha_preto = new Rainha("P");
+  private Cavalo cavalo_preto = new Cavalo("P");
+  private Cavalo cavalo_branco = new Cavalo("B");
+  private Torre torre_preto = new Torre("P");
+  private Torre torre_branco = new Torre("B");
+  private Bispo bispo_preto = new Bispo("P");
+  private Bispo bispo_branco = new Bispo("B");
+  private Peao peao_preto = new Peao("P");
+  private Peao peao_branco = new Peao("B");
 
   /*
   Construtor: Monta o tabuleiro de acordo com os Pontos no lugar inicial de cada peça.
   */
   public Tabuleiro(){
-    matriz[rei_branco_ponto.get_x()][rei_branco_ponto.get_y()]=rei_branco;
-    matriz[rei_preto_ponto.get_x()][rei_preto_ponto.get_y()]=rei_preto;
-    matriz[cavalo_branco_ponto.get_x()][cavalo_branco_ponto.get_y()]=cavalo_branco;
-    matriz[cavalo_preto_ponto.get_x()][cavalo_preto_ponto.get_y()]=cavalo_preto;
-    matriz[torre_branco_ponto.get_x()][torre_branco_ponto.get_y()]=torre_branco;
-    matriz[torre_preto_ponto.get_x()][torre_preto_ponto.get_y()]=torre_preto;
-    matriz[bispo_branco_ponto.get_x()][bispo_branco_ponto.get_y()]=bispo_branco;
-    matriz[bispo_preto_ponto.get_x()][bispo_preto_ponto.get_y()]=bispo_preto;
+    this.matriz[0][0]=torre_preto;
+    this.matriz[1][0]=cavalo_preto;
+    this.matriz[2][0]=bispo_preto;
+    this.matriz[3][0]=rei_preto;
+    this.matriz[4][0]=rainha_preto;
+    this.matriz[5][0]=bispo_preto;
+    this.matriz[6][0]=cavalo_preto;
+    this.matriz[7][0]=torre_preto;
+    this.matriz[0][1]=peao_preto;
+    this.matriz[1][1]=peao_preto;
+    this.matriz[2][1]=peao_preto;
+    this.matriz[3][1]=peao_preto;
+    this.matriz[4][1]=peao_preto;
+    this.matriz[5][1]=peao_preto;
+    this.matriz[6][1]=peao_preto;
+    this.matriz[7][1]=peao_preto;
+    this.matriz[0][7]=torre_branco;
+    this.matriz[1][7]=cavalo_branco;
+    this.matriz[2][7]=bispo_branco;
+    this.matriz[3][7]=rei_branco;
+    this.matriz[4][7]=rainha_branco;
+    this.matriz[5][7]=bispo_branco;
+    this.matriz[6][7]=cavalo_branco;
+    this.matriz[7][7]=torre_branco;
+    this.matriz[0][6]=peao_branco;
+    this.matriz[1][6]=peao_branco;
+    this.matriz[2][6]=peao_branco;
+    this.matriz[3][6]=peao_branco;
+    this.matriz[4][6]=peao_branco;
+    this.matriz[5][6]=peao_branco;
+    this.matriz[6][6]=peao_branco;
+    this.matriz[7][6]=peao_branco;
   }
 
   /*
@@ -45,9 +65,9 @@ public class Tabuleiro {
   public boolean jogada(Ponto partida, Ponto chegada){
     if(this.vez_jogador(partida)){
       if(this.verifica_ponto(chegada)){
-        if(matriz[partida.get_x()][partida.get_y()].set_posicao(chegada, matriz)){
-          matriz[chegada.get_x()][chegada.get_y()]=matriz[partida.get_x()][partida.get_y()];
-          matriz[partida.get_x()][partida.get_y()]=null;
+        if(this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
           jogador_branco = !jogador_branco;
           return true;
         }

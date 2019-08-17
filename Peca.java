@@ -1,18 +1,25 @@
 public abstract class Peca{
   protected String cor;
-  protected Ponto posicao;
   protected Ponto[] movimentos = new Ponto[28];
+
+  public Peca(String cor){
+    if(this.verifica_cor(cor)){
+      this.cor=cor;
+    }
+    else{
+      this.cor="B";
+    }
+    this.zera_movimentos();
+  }
 
   /*
   Função:
-  Verifica se o Ponto dessa Peca está no tabuleiro fornecido
+  Verifica se o cor é B ou P
   Entrada: Tabuleiro
   */
-  protected boolean verifica_ponto(Peca[][] tabuleiro){
-    if(this.posicao!=null){
-      if(this.posicao.get_x()<tabuleiro.length && this.posicao.get_x()>=0 && this.posicao.get_y()<tabuleiro.length && this.posicao.get_y()>=0){
-        return true;
-      }
+  protected boolean verifica_cor(String cor){
+    if(cor.equals("B") || cor.equals("P")){
+      return true;
     }
     return false;
   }
@@ -31,19 +38,14 @@ public abstract class Peca{
   Verifica se o Ponto de chegada está dentro do vetor de movimentos válidos
   Entrada: Ponto de chegada e Tabuleiro
   */
-  public boolean set_posicao(Ponto chegada, Peca[][] tabuleiro){
-    this.constroi_movimentos(tabuleiro);
+  public boolean set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
+    this.constroi_movimentos(partida, tabuleiro);
     for(int i=0;i<this.movimentos.length;i++){
       if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
-        this.posicao.set_ponto(chegada.get_x(), chegada.get_y());
         return true;
       }
     }
     return false;
-  }
-
-  public Ponto get_posicao(){
-    return this.posicao;
   }
 
   /*
@@ -118,7 +120,7 @@ public abstract class Peca{
   3.Reconstrói o vetor de acordo com a configuração do Tabuleiro e Peca correspondente se 2 é verdadeiro.
   Entrada: Tabuleiro
   */
-  public abstract void constroi_movimentos(Peca[][] tabuleiro);
+  public abstract void constroi_movimentos(Ponto partida, Peca[][] tabuleiro);
 
   /*
   Função: Printa todos o vetor de movimentos válidos
