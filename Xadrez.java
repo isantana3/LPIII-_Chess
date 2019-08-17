@@ -3,7 +3,6 @@ public class Xadrez {
     Ponto partida = new Ponto();
     Ponto chegada = new Ponto();
     Tabuleiro tabuleiro = new Tabuleiro();
-    tabuleiro.monta_tabuleiro();
     tabuleiro.mostra_tabuleiro();
     partida.set_ponto(3, 4);
     chegada.set_ponto(4, 5);
@@ -11,6 +10,10 @@ public class Xadrez {
     tabuleiro.mostra_tabuleiro();
     partida.set_ponto(4, 4);
     chegada.set_ponto(5, 2);
+    tabuleiro.jogada(partida, chegada);
+    tabuleiro.mostra_tabuleiro();
+    partida.set_ponto(3, 3);
+    chegada.set_ponto(5, 5);
     tabuleiro.jogada(partida, chegada);
     tabuleiro.mostra_tabuleiro();
     partida.set_ponto(5, 2);

@@ -1,5 +1,5 @@
 # LPIII_Chess
-Produzir classes java que juntas formem um xadrez :|
+Produzir classes java que juntas formem um xadrez
 
   Integrantes:
       Erika Rafaesky

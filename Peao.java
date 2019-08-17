@@ -1,54 +1,70 @@
-public class Peao extends Itens {
-  private boolean moved;  //var usada para verificar se a peça já se moveu alguma VEZ.
+public class Peao extends Peca {
+  private boolean moved;
 
-  public Peao(int x, int y, char cor){
-    this.x=x;
-    this.y=y;
+  public Peao(String cor, Ponto posicao){
+    this.posicao=posicao;
     this.cor=cor;
-    this.moved = false;
+    this.moved=false;
   }
 
-  // get 'n set
-  public void setMoved(boolean tf){
-    this.moved = tf;
-  }
-  public boolean getMoved(){
+  public boolean get_moved(){
     return this.moved;
   }
 
-  private boolean verifica_movimento(int x, int y){
-    // caso seja a primerira jogada com o peão (ele pode andar até duas casas para frente)
-    if(y == this.get_y()+2  &&  this.getMoved() == false  &&  x == this.get_x() ){ //add a condição do lugar estar vazio
-      this.setMoved(true);
-      return true;
-    }
-
-    // caso não seja a primerira jogada com o peão (só vai uma casa pra frente)
-    if(y == this.get_y()+1  &&  x == this.get_x() ){   //add a condição do lugar estar vazio
-      return true;
-    }
-
-    // caso o peão vá capturar uma peça (nas diagonais frontais)
-    if( (x == this.get_x() +1  ||  y == this.get_x()-1)  &&  y == this.get_y()+1) {
-        // add a condição	de ter uma peça no espaço para onde o peã vazio
-        // por o peão no lugar da outra peça e por a outra peça em algum lugar fora da matriz
-        return true;
-    }
-
-  }
-
-  public void moveTo(int x, int y){
-    if(this.verifica_movimento(x, y)) {
-      // if(isEmpty(x, y) == false){     //método que ainda não existe, na teoria ele só me fala se tal lugar tem ou não uma peça
-      //   // getItem(x, y).set_posicao(10, 10);
-      //   // teoricamente eu estou acessando a posição para onde meu peão vai, estou tirando a peça que está lá e a mandando para um lugar fora da matrix
-      //   // getItem(não tá implementado ainda) deve retornar um objeto do tipo Item (uma peça) e para isso recebe as coodenadas da Matrix como argumento
-      // }
-      this.set_posicao(x, y);
-      if(y == 0 || y == 7){
-        // this.upPeao(); // ainda n implementado, deve transformar o peão em outra peça
+  public void constroi_movimentos(Peca[][] tabuleiro){
+    this.zera_movimentos();
+    if(this.verifica_ponto(tabuleiro)){
+      int aux = 0;
+      int i=this.posicao.get_x();
+      int j=this.posicao.get_y();
+      if(this.cor.equals('B')){
+        if(j-1>=0 && tabuleiro[i][j-1]==null){
+          this.movimentos[aux++].set_ponto(i, j-1);
+        }
+        if(j-1>=0 && i+1<tabuleiro.length && !tabuleiro[i+1][j-1].get_cor().equals(this.cor)){
+          this.movimentos[aux++].set_ponto(i+1, j-1);
+        }
+        if(j-1>=0 && i-1>=0 && !tabuleiro[j-1][j-1].get_cor().equals(this.cor)){
+          this.movimentos[aux++].set_ponto(i-1, j-1);
+        }
+        if(!this.moved){
+          if(j-2>=0 && tabuleiro[i][j-2]==null){
+            this.movimentos[aux++].set_ponto(i, j-2);
+          }
+        }
+      }
+      else{
+        if(j+1<tabuleiro.length && tabuleiro[i][j+1]==null){
+          this.movimentos[aux++].set_ponto(i, j+1);
+        }
+        if(j+1<tabuleiro.length && i+1<tabuleiro.length && !tabuleiro[i+1][j+1].get_cor().equals(this.cor)){
+          this.movimentos[aux++].set_ponto(i+1, j+1);
+        }
+        if(j+1<tabuleiro.length && i-1>=0 && !tabuleiro[i-1][j+1].get_cor().equals(this.cor)){
+          this.movimentos[aux++].set_ponto(i-1, j+1);
+        }
+        if(!this.moved){
+          if(j+2>=0 && tabuleiro[i][j+2]==null){
+            this.movimentos[aux++].set_ponto(i, j+2);
+          }
+        }
       }
     }
+  }
 
+  public boolean set_posicao(Ponto chegada, Peca[][] tabuleiro){
+    this.constroi_movimentos(tabuleiro);
+    for(int i=0;i<this.movimentos.length;i++){
+      if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
+        this.posicao.set_ponto(chegada.get_x(), chegada.get_y());
+        this.moved=true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public String toString(){
+    return "P"+this.cor;
   }
 }

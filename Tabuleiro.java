@@ -19,9 +19,9 @@ public class Tabuleiro {
   private Bispo bispo_preto = new Bispo("P", bispo_preto_ponto);
 
   /*
-  Função: Monta o tabuleiro de acordo com os Pontos
+  Construtor: Monta o tabuleiro de acordo com os Pontos no lugar inicial de cada peça.
   */
-  public void monta_tabuleiro(){
+  public Tabuleiro(){
     matriz[rei_branco_ponto.get_x()][rei_branco_ponto.get_y()]=rei_branco;
     matriz[rei_preto_ponto.get_x()][rei_preto_ponto.get_y()]=rei_preto;
     matriz[cavalo_branco_ponto.get_x()][cavalo_branco_ponto.get_y()]=cavalo_branco;
@@ -87,9 +87,13 @@ public class Tabuleiro {
   }
 
   /*
-  Função: Printa matriz de Pecas
+  Função: Printa matriz de Pecas e vez do jogador.
   */
   public void mostra_tabuleiro(){
+    if(this.jogador_branco)
+      System.out.println("Jogador da vez: Branco");
+    else
+      System.out.println("Jogador da vez: Preto");
     for(int i=0;i<8;i++){
       for(int j=0;j<8;j++){
         if(this.matriz[j][i]==null){
