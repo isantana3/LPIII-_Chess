@@ -9,7 +9,7 @@
 # Classe Peca:
 	Atributos:
 		String cor; (Só deve receber "B" ou "P" - falta fazer verificação pra isso)
-		Ponto posicao; (Ponto - qualquer, sem verificacao - com a posicao da Peca na matriz se Ponto contido na matriz)
+		Ponto posicao; Ponto - qualquer, sem verificacao
 		Ponto[] movimentos: (Vetor dos movimentos válidos em this.posicao)
 	Métodos:
 		verifica_ponto(Tabuleiro) - se o ponto posicao DESSA peca tá no tabuleiro.
