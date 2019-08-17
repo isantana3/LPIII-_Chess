@@ -5,4 +5,5 @@ Produzir classes java que juntas formem um xadrez :|
       Erika Rafaesky
       Iago Gomes
       Lil Galo
-      Juliana Midlej    
+      Juliana Midlej
+      Lily Linda Midlej   
