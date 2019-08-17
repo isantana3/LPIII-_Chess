@@ -5,6 +5,18 @@ public class Tabuleiro {
   private Rei rei_branco = new Rei("B", rei_branco_ponto);
   private Ponto rei_preto_ponto = new Ponto(0, 0);
   private Rei rei_preto = new Rei("P", rei_preto_ponto);
+  private Ponto cavalo_branco_ponto = new Ponto(4, 4);
+  private Cavalo cavalo_branco = new Cavalo("B", cavalo_branco_ponto);
+  private Ponto cavalo_preto_ponto = new Ponto(5, 6);
+  private Cavalo cavalo_preto = new Cavalo("P", cavalo_preto_ponto);
+  private Ponto torre_branco_ponto = new Ponto(3, 4);
+  private Torre torre_branco = new Torre("B", torre_branco_ponto);
+  private Ponto torre_preto_ponto = new Ponto(6, 6);
+  private Torre torre_preto = new Torre("P", torre_preto_ponto);
+  private Ponto bispo_branco_ponto = new Ponto(7, 7);
+  private Bispo bispo_branco = new Bispo("B", bispo_branco_ponto);
+  private Ponto bispo_preto_ponto = new Ponto(3, 3);
+  private Bispo bispo_preto = new Bispo("P", bispo_preto_ponto);
 
   /*
   Função: Monta o tabuleiro de acordo com os Pontos
@@ -12,6 +24,12 @@ public class Tabuleiro {
   public void monta_tabuleiro(){
     matriz[rei_branco_ponto.get_x()][rei_branco_ponto.get_y()]=rei_branco;
     matriz[rei_preto_ponto.get_x()][rei_preto_ponto.get_y()]=rei_preto;
+    matriz[cavalo_branco_ponto.get_x()][cavalo_branco_ponto.get_y()]=cavalo_branco;
+    matriz[cavalo_preto_ponto.get_x()][cavalo_preto_ponto.get_y()]=cavalo_preto;
+    matriz[torre_branco_ponto.get_x()][torre_branco_ponto.get_y()]=torre_branco;
+    matriz[torre_preto_ponto.get_x()][torre_preto_ponto.get_y()]=torre_preto;
+    matriz[bispo_branco_ponto.get_x()][bispo_branco_ponto.get_y()]=bispo_branco;
+    matriz[bispo_preto_ponto.get_x()][bispo_preto_ponto.get_y()]=bispo_preto;
   }
 
   /*
@@ -82,6 +100,7 @@ public class Tabuleiro {
       }
       System.out.println();
     }
+    System.out.println();
   }
 
   public Peca[][] get_matriz(){

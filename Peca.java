@@ -31,10 +31,11 @@ public abstract class Peca{
   Verifica se o Ponto de chegada está dentro do vetor de movimentos válidos
   Entrada: Ponto de chegada e Tabuleiro
   */
-  public boolean set_posicao(Ponto destino, Peca[][] tabuleiro){
+  public boolean set_posicao(Ponto chegada, Peca[][] tabuleiro){
     this.constroi_movimentos(tabuleiro);
     for(int i=0;i<this.movimentos.length;i++){
-      if(destino.get_x()==this.movimentos[i].get_x() && destino.get_y()==this.movimentos[i].get_y()){
+      if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
+        this.posicao.set_ponto(chegada.get_x(), chegada.get_y());
         return true;
       }
     }
