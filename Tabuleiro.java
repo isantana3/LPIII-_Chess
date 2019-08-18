@@ -2,6 +2,7 @@ public class Tabuleiro {
   private Peca matriz[][] = new Peca[8][8];
   private boolean jogador_branco = true;
   private boolean reis_vivos = true;
+  private Ponto ponto_passant = new Ponto();
   private Rei rei_branco = new Rei("B");
   private Rei rei_preto = new Rei("P");
   private Rainha rainha_branco = new Rainha("B");
@@ -80,9 +81,9 @@ public class Tabuleiro {
          False se não.
   */
   public boolean jogada(Ponto partida, Ponto chegada){
-    boolean apaga=false;
-    if(verifica_enPassant()){
-      apaga=true;
+    boolean apaga_passant=false;
+    if(this.verifica_enPassant()){
+      apaga_passant=true;
     }
     if(this.vez_jogador(partida) && this.verifica_ponto(chegada)){
       switch (this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
@@ -127,7 +128,7 @@ public class Tabuleiro {
         case 7: //PEAO PRETO NO FINAL
       }
     }
-    if(apaga){
+    if(apaga_passant){
       this.zera_enPassant();
     }
     return false;
@@ -150,19 +151,14 @@ public class Tabuleiro {
   }
 
   private void zera_enPassant(){
-    for(int i=0;i<8;i++){
-      for(int j=0;j<8;j++){
-        if(this.matriz[i][j]!=null){
-          this.matriz[i][j].set_passant(false);
-        }
-      }
-    }
+    this.matriz[this.ponto_passant.get_x()][this.ponto_passant.get_y()].set_passant(false);
   }
 
   private boolean verifica_enPassant(){
     for(int i=0;i<8;i++){
       for(int j=0;j<8;j++){
         if(this.matriz[i][j]!=null && this.matriz[i][j].get_passant()==true){
+          this.ponto_passant.set_ponto(i, j);
           return true;
         }
       }
