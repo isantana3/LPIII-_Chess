@@ -80,6 +80,10 @@ public class Tabuleiro {
          False se não.
   */
   public boolean jogada(Ponto partida, Ponto chegada){
+    boolean apaga=false;
+    if(verifica_enPassant()){
+      apaga=true;
+    }
     if(this.vez_jogador(partida) && this.verifica_ponto(chegada)){
       switch (this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
         case 0:
@@ -123,6 +127,9 @@ public class Tabuleiro {
         case 7: //PEAO PRETO NO FINAL
       }
     }
+    if(apaga){
+      this.zera_enPassant();
+    }
     return false;
   }
   /*
@@ -145,9 +152,22 @@ public class Tabuleiro {
   private void zera_enPassant(){
     for(int i=0;i<8;i++){
       for(int j=0;j<8;j++){
-        this.matriz[i][j].set_passant(false);
+        if(this.matriz[i][j]!=null){
+          this.matriz[i][j].set_passant(false);
+        }
       }
     }
+  }
+
+  private boolean verifica_enPassant(){
+    for(int i=0;i<8;i++){
+      for(int j=0;j<8;j++){
+        if(this.matriz[i][j]!=null && this.matriz[i][j].get_passant()==true){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /*

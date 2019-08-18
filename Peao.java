@@ -22,7 +22,7 @@ public class Peao extends Peca {
         if(i+1<tabuleiro.length && tabuleiro[i+1][j]!=null && !tabuleiro[i+1][j].toString().equals("P"+this.cor) && tabuleiro[i+1][j].get_passant()){ // DA MESMA COR OU DE OUTRA COR
           this.movimentos[aux++].set_ponto(i+1, j-1);
         }
-        if(i-1>=0 &&  tabuleiro[i-1][j]!=null && !tabuleiro[i+1][j].toString().equals("P"+this.cor) && tabuleiro[i-1][j].get_passant()){
+        if(i-1>=0 &&  tabuleiro[i-1][j]!=null && !tabuleiro[i-1][j].toString().equals("P"+this.cor) && tabuleiro[i-1][j].get_passant()){
           this.movimentos[aux++].set_ponto(i-1, j-1);
         }
         //DUAS CASAS A FRENTE
@@ -46,7 +46,7 @@ public class Peao extends Peca {
         if(i+1<tabuleiro.length && tabuleiro[i+1][j]!=null && !tabuleiro[i+1][j].toString().equals("P"+this.cor) && tabuleiro[i+1][j].get_passant()){
           this.movimentos[aux++].set_ponto(i+1, j+1);
         }
-        if(i-1>=0 &&  tabuleiro[i-1][j]!=null && !tabuleiro[i+1][j].toString().equals("P"+this.cor) && tabuleiro[i-1][j].get_passant()){
+        if(i-1>=0 &&  tabuleiro[i-1][j]!=null && !tabuleiro[i-1][j].toString().equals("P"+this.cor) && tabuleiro[i-1][j].get_passant()){
           this.movimentos[aux++].set_ponto(i-1, j+1);
         }
         //DUAS CASAS A FRENTE
@@ -68,19 +68,19 @@ public class Peao extends Peca {
           this.passant=true;
         }
         // PASSANT PEAO PRETO PELA DIREITA
-        if(tabuleiro[x+1][y]!=null && tabuleiro[x+1][y].get_passant() && chegada.get_x()==x+1 && chegada.get_y()==y+1){
+        if(x+1<tabuleiro.length && y+1<tabuleiro.length && tabuleiro[x+1][y]!=null && tabuleiro[x+1][y].get_passant() && chegada.get_x()==x+1 && chegada.get_y()==y+1){
           return 4;
         }
         // PASSANT PEAO PRETO PELA ESQUERDA
-        if(tabuleiro[x-1][y]!=null && tabuleiro[x-1][y].get_passant() && chegada.get_x()==x-1 && chegada.get_y()==y+1){
+        if(x-1>=0 && y+1<tabuleiro.length && tabuleiro[x-1][y]!=null && tabuleiro[x-1][y].get_passant() && chegada.get_x()==x-1 && chegada.get_y()==y+1){
           return 4;
         }
         // PASSANT PEAO BRANCO PELA DIREITA
-        if(tabuleiro[x+1][y]!=null && tabuleiro[x+1][y].get_passant() && chegada.get_x()==x+1 && chegada.get_y()==y-1){
+        if(x+1<tabuleiro.length && y-1>=0 && tabuleiro[x+1][y]!=null && tabuleiro[x+1][y].get_passant() && chegada.get_x()==x+1 && chegada.get_y()==y-1){
           return 5;
         }
         // PASSANT PEAO BRANCO PELA DIREITA
-        if(tabuleiro[x-1][y]!=null && tabuleiro[x-1][y].get_passant() && chegada.get_x()==x-1 && chegada.get_y()==y-1){
+        if(x-1>=0 && y-1>=0 && tabuleiro[x-1][y]!=null && tabuleiro[x-1][y].get_passant() && chegada.get_x()==x-1 && chegada.get_y()==y-1){
           return 5;
         }
         if(chegada.get_y()==0){
