@@ -1,4 +1,6 @@
 public abstract class Peca{
+  protected boolean passant;
+  protected boolean moved;
   protected String cor;
   protected Ponto[] movimentos = new Ponto[28];
 
@@ -9,6 +11,8 @@ public abstract class Peca{
     else{
       this.cor="B";
     }
+    this.passant=false;
+    this.moved=false;
     this.zera_movimentos();
   }
 
@@ -32,20 +36,37 @@ public abstract class Peca{
     return this.cor;
   }
 
+  public void set_moved(boolean moved){
+    this.moved=moved;
+  }
+
+  public boolean get_moved(){
+    return this.moved;
+  }
+
+  public void set_passant(boolean passant){
+    this.passant=passant;
+  }
+
+  public boolean get_passant(){
+    return this.passant;
+  }
+
   /*
   Função:
   Constroi o vetor de movimentos válidos para esta Peca na posicao atual
   Verifica se o Ponto de chegada está dentro do vetor de movimentos válidos
   Entrada: Ponto de chegada e Tabuleiro
   */
-  public boolean set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
+  public int set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
     this.constroi_movimentos(partida, tabuleiro);
     for(int i=0;i<this.movimentos.length;i++){
       if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
-        return true;
+        this.moved=true;
+        return 1;
       }
     }
-    return false;
+    return 0;
   }
 
   /*

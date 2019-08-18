@@ -1,13 +1,6 @@
 public class Rei extends Peca {
-  private boolean moved;
-
   public Rei(String cor){
     super(cor);
-    this.moved=false;
-  }
-
-  public boolean get_moved(){
-    return this.moved;
   }
 
   public void constroi_movimentos(Ponto partida, Peca[][] tabuleiro){
@@ -39,17 +32,42 @@ public class Rei extends Peca {
     if(i-1>=0 && j-1>=0 && (tabuleiro[i-1][j-1]==null || !tabuleiro[i-1][j-1].get_cor().equals(this.cor))){
       this.movimentos[aux++].set_ponto(i-1, j-1);
     }
+    if(!this.moved){
+      int k;
+      for(k=i+1;k<tabuleiro.length;k++){
+        if(tabuleiro[k][j]!=null){
+          break;
+        }
+      }
+      if(k==7 && tabuleiro[k][j].toString().equals("T"+this.cor) && !tabuleiro[k][j].get_moved()){
+        this.movimentos[aux++].set_ponto(i+2, j);
+      }
+      for(k=i-1;k>=0;k--){
+        if(tabuleiro[k][j]!=null){
+          break;
+        }
+      }
+      if(k==0 && tabuleiro[k][j].toString().equals("T"+this.cor) && !tabuleiro[k][j].get_moved()){
+        this.movimentos[aux++].set_ponto(i-2, j);
+      }
+    }
   }
 
-  public boolean set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
+  public int set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
     this.constroi_movimentos(partida, tabuleiro);
     for(int i=0;i<this.movimentos.length;i++){
       if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
+        if(chegada.get_x()==partida.get_x()+2){
+          return 3;
+        }
+        if(chegada.get_x()==partida.get_x()-2){
+          return 2;
+        }
         this.moved=true;
-        return true;
+        return 1;
       }
     }
-    return false;
+    return 0;
   }
 
   public String toString(){

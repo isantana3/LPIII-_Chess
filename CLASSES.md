@@ -26,6 +26,15 @@
 	2.Le passant
 	3.Peao no fim do tabuleiro
 - 4.Fim de jogo (O jogo acaba agora aparentemente)
-	5.Xeque e verificação(???)
+	5.Xeque e verificação(???) // rei em cheque só pode mexer o rei
 	6.Interface Gráfica
 	TESTAR AS CLASSES // FUNCIONAMENTO // EXCEÇÕES // POSSÍVEIS ERROS NO CÓDIGO
+
+# LEMBRAR
+1. troca normal
+2. roque ESQUERDA
+3. roque DIREITA
+4. en passant preto
+5. en passant branco
+6. peao no final
+7. peao no final

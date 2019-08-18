@@ -1,13 +1,6 @@
 public class Torre extends Peca {
-  private boolean moved;
-
   public Torre(String cor){
     super(cor);
-    this.moved=false;
-  }
-
-  public boolean get_moved(){
-    return this.moved;
   }
 
   public void constroi_movimentos(Ponto partida, Peca[][] tabuleiro){
@@ -59,17 +52,6 @@ public class Torre extends Peca {
         else
           break;
       }
-  }
-
-  public boolean set_posicao(Ponto partida, Ponto chegada, Peca[][] tabuleiro){
-    this.constroi_movimentos(partida, tabuleiro);
-    for(int i=0;i<this.movimentos.length;i++){
-      if(chegada.get_x()==this.movimentos[i].get_x() && chegada.get_y()==this.movimentos[i].get_y()){
-        this.moved=true;
-        return true;
-      }
-    }
-    return false;
   }
 
   public String toString(){

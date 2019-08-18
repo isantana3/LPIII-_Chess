@@ -81,19 +81,50 @@ public class Tabuleiro {
   */
   public boolean jogada(Ponto partida, Ponto chegada){
     if(this.vez_jogador(partida) && this.verifica_ponto(chegada)){
-      if(this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
-        if(this.matriz[chegada.get_x()][chegada.get_y()]!=null && (this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KB") || this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KP"))){
-          this.reis_vivos=false;
-        }
-        this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
-        this.matriz[partida.get_x()][partida.get_y()]=null;
-        jogador_branco = !jogador_branco;
-        return true;
+      switch (this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
+        case 0:
+          return false;
+        case 1: //NORMAL
+          if(this.matriz[chegada.get_x()][chegada.get_y()]!=null && (this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KB") || this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KP"))){
+            this.reis_vivos=false;
+          }
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        case 2: //ROQUE PRA ESQUERDA
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          this.matriz[chegada.get_x()+1][chegada.get_y()]=this.matriz[0][chegada.get_y()];
+          this.matriz[0][chegada.get_y()]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        case 3: //ROQUE PRA DIREITA
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          this.matriz[chegada.get_x()-1][chegada.get_y()]=this.matriz[7][chegada.get_y()];
+          this.matriz[7][chegada.get_y()]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        case 4: //EN PASSANT PEAO PRETO
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          this.matriz[chegada.get_x()][chegada.get_y()-1]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        case 5: //EN PASSANT PEAO BRANCO
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          this.matriz[chegada.get_x()][chegada.get_y()+1]=null;
+          jogador_branco = !jogador_branco;
+          return true;
+        case 6: //PEAO BRANCO NO FINAL
+          //SWITCH PRA SABER QUAL OBJ VAI CRIAR E SOBREPOR PEAO.
+        case 7: //PEAO PRETO NO FINAL
       }
     }
     return false;
   }
-
   /*
   Função: Verifica se o jogador da vez selecionou uma peça própria
   Entrada: Ponto de partida inserido pelo usuário
@@ -109,6 +140,14 @@ public class Tabuleiro {
       }
     }
     return false;
+  }
+
+  private void zera_enPassant(){
+    for(int i=0;i<8;i++){
+      for(int j=0;j<8;j++){
+        this.matriz[i][j].set_passant(false);
+      }
+    }
   }
 
   /*
