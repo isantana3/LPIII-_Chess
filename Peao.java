@@ -87,7 +87,7 @@ public class Peao extends Peca {
           return 6;
         }
         if(chegada.get_y()==7){
-          return 7;
+          return 6;
         }
         this.moved=true;
         return 1;

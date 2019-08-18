@@ -1,9 +1,14 @@
+import java.util.Scanner;
+
 public class Tabuleiro {
+  private Scanner input = new Scanner(System.in);
+
   private Peca matriz[][] = new Peca[8][8];
   private boolean jogador_branco = true;
   private boolean reis_vivos = true;
   private boolean apaga_passant = false;
   private Ponto ponto_passant = new Ponto();
+
   private Rei rei_branco = new Rei("B");
   private Rei rei_preto = new Rei("P");
   private Rainha rainha_branco = new Rainha("B");
@@ -127,9 +132,14 @@ public class Tabuleiro {
           this.jogador_branco = !this.jogador_branco;
           this.apaga_passant = false;
           break;
-        case 6: //PEAO BRANCO NO FINAL
-          //SWITCH PRA SABER QUAL OBJ VAI CRIAR E SOBREPOR PEAO.
-        case 7: //PEAO PRETO NO FINAL
+        case 6://PEAO NO FIM DO TABULEIRO
+          if(this.matriz[chegada.get_x()][chegada.get_y()]!=null && (this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KB") || this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KP"))){
+            this.reis_vivos=false;
+          }
+          this.matriz[chegada.get_x()][chegada.get_y()]=this.selecionar_peca(this.matriz[partida.get_x()][partida.get_y()].get_cor());
+          this.matriz[partida.get_x()][partida.get_y()]=null;
+          this.jogador_branco = !this.jogador_branco;
+          break;
       }
     }
     else {
@@ -154,6 +164,37 @@ public class Tabuleiro {
       }
     }
     return false;
+  }
+
+  private Peca selecionar_peca(String cor){
+    int x=0;
+    System.out.println("1. Rainha");
+    System.out.println("2. Torre");
+    System.out.println("3. Bispo");
+    System.out.println("4. Cavalo");
+    System.out.println("Selecione a peça desejada:");
+    x = input.nextInt();
+    switch (x) {
+      case 1:
+        if(cor.equals("B"))
+          return this.rainha_branco;
+        return this.rainha_preto;
+      case 2:
+        if(cor.equals("B"))
+          return this.torre_branco_1;
+        return this.torre_preto_1;
+      case 3:
+        if(cor.equals("B"))
+          return this.bispo_branco;
+        return this.bispo_preto;
+      case 4:
+        if(cor.equals("B"))
+          return this.cavalo_branco;
+        return this.cavalo_preto;
+    }
+    if(cor.equals("B"))
+      return this.rainha_branco;
+    return this.rainha_preto;
   }
 
   private void zera_enPassant(){
