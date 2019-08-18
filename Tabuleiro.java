@@ -2,6 +2,7 @@ public class Tabuleiro {
   private Peca matriz[][] = new Peca[8][8];
   private boolean jogador_branco = true;
   private boolean reis_vivos = true;
+  private boolean apaga_passant = false;
   private Ponto ponto_passant = new Ponto();
   private Rei rei_branco = new Rei("B");
   private Rei rei_preto = new Rei("P");
@@ -80,58 +81,63 @@ public class Tabuleiro {
   Saída: True se a jogada for realizada.
          False se não.
   */
-  public boolean jogada(Ponto partida, Ponto chegada){
-    boolean apaga_passant=false;
+  public void jogada(Ponto partida, Ponto chegada){
+    this.apaga_passant=false;
     if(this.verifica_enPassant()){
-      apaga_passant=true;
+      this.apaga_passant=true;
     }
     if(this.vez_jogador(partida) && this.verifica_ponto(chegada)){
       switch (this.matriz[partida.get_x()][partida.get_y()].set_posicao(partida, chegada, this.matriz)){
         case 0:
-          return false;
+          this.apaga_passant=false;
+          break;
         case 1: //NORMAL
           if(this.matriz[chegada.get_x()][chegada.get_y()]!=null && (this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KB") || this.matriz[chegada.get_x()][chegada.get_y()].toString().equals("KP"))){
             this.reis_vivos=false;
           }
           this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
           this.matriz[partida.get_x()][partida.get_y()]=null;
-          jogador_branco = !jogador_branco;
-          return true;
+          this.jogador_branco = !this.jogador_branco;
+          break;
         case 2: //ROQUE PRA ESQUERDA
           this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
           this.matriz[partida.get_x()][partida.get_y()]=null;
           this.matriz[chegada.get_x()+1][chegada.get_y()]=this.matriz[0][chegada.get_y()];
           this.matriz[0][chegada.get_y()]=null;
-          jogador_branco = !jogador_branco;
-          return true;
+          this.jogador_branco = !this.jogador_branco;
+          break;
         case 3: //ROQUE PRA DIREITA
           this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
           this.matriz[partida.get_x()][partida.get_y()]=null;
           this.matriz[chegada.get_x()-1][chegada.get_y()]=this.matriz[7][chegada.get_y()];
           this.matriz[7][chegada.get_y()]=null;
-          jogador_branco = !jogador_branco;
-          return true;
+          this.jogador_branco = !this.jogador_branco;
+          break;
         case 4: //EN PASSANT PEAO PRETO
           this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
           this.matriz[partida.get_x()][partida.get_y()]=null;
           this.matriz[chegada.get_x()][chegada.get_y()-1]=null;
-          jogador_branco = !jogador_branco;
-          return true;
+          this.jogador_branco = !this.jogador_branco;
+          this.apaga_passant = false;
+          break;
         case 5: //EN PASSANT PEAO BRANCO
           this.matriz[chegada.get_x()][chegada.get_y()]=this.matriz[partida.get_x()][partida.get_y()];
           this.matriz[partida.get_x()][partida.get_y()]=null;
           this.matriz[chegada.get_x()][chegada.get_y()+1]=null;
-          jogador_branco = !jogador_branco;
-          return true;
+          this.jogador_branco = !this.jogador_branco;
+          this.apaga_passant = false;
+          break;
         case 6: //PEAO BRANCO NO FINAL
           //SWITCH PRA SABER QUAL OBJ VAI CRIAR E SOBREPOR PEAO.
         case 7: //PEAO PRETO NO FINAL
       }
     }
-    if(apaga_passant){
+    else {
+      this.apaga_passant=false;
+    }
+    if(this.apaga_passant){
       this.zera_enPassant();
     }
-    return false;
   }
   /*
   Função: Verifica se o jogador da vez selecionou uma peça própria
