@@ -25,7 +25,7 @@
 	1.Roque
 	2.Le passant
 	3.Peao no fim do tabuleiro
-	4.Fim de jogo
+- 4.Fim de jogo (O jogo acaba agora aparentemente)
 	5.Xeque e verificação(???)
 	6.Interface Gráfica
 	TESTAR AS CLASSES // FUNCIONAMENTO // EXCEÇÕES // POSSÍVEIS ERROS NO CÓDIGO

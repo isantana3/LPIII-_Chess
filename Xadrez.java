@@ -9,7 +9,12 @@ public class Xadrez {
     int x;
     int y;
     tabuleiro.mostra_tabuleiro();
-    for(int i=0;i<100; i++){
+    while(tabuleiro.get_reis_vivos()){
+      if(tabuleiro.get_jogador_branco()){
+        System.out.println("TURNO: BRANCO");
+      }
+      else
+        System.out.println("TURNO: PRETO");
       System.out.print("X1 = ");
       x = input.nextInt();
       System.out.print("Y1 = ");
